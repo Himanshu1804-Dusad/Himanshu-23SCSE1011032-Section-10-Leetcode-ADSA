@@ -1,0 +1,19 @@
+class Solution {
+    public String getPermutation(int n, int k) {
+        List<Integer> nums = new ArrayList<>();
+        int f = 1;
+        for (int i = 1; i <= n; i++) {
+            nums.add(i);
+            f *= i;
+        }
+        k--;
+        StringBuilder sb = new StringBuilder();
+        for (int i = n; i > 0; i--) {
+            f /= i;
+            int idx = k / f;
+            sb.append(nums.remove(idx));
+            k %= f;
+        }
+        return sb.toString();
+    }
+}
