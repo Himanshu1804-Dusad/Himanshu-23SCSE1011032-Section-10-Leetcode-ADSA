@@ -1,0 +1,20 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> r = new ArrayList<>();
+        f(r, new ArrayList<>(), s, 0);
+        return r;
+    }
+    void f(List<List<String>> r, List<String> p, String s, int i) {
+        if (i == s.length()) { r.add(new ArrayList<>(p)); return; }
+        for (int j = i; j < s.length(); j++)
+            if (is(s, i, j)) {
+                p.add(s.substring(i, j+1));
+                f(r, p, s, j+1);
+                p.remove(p.size()-1);
+            }
+    }
+    boolean is(String s, int l, int r) {
+        while (l < r) if (s.charAt(l++) != s.charAt(r--)) return false;
+        return true;
+    }
+}
