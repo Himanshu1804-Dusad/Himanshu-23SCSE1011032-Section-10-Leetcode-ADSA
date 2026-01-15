@@ -1,0 +1,16 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] c, int t) {
+        List<List<Integer>> r = new ArrayList<>();
+        f(c, t, 0, new ArrayList<>(), r);
+        return r;
+    }
+    private void f(int[] c, int t, int i, List<Integer> l, List<List<Integer>> r) {
+        if (t == 0) { r.add(new ArrayList<>(l)); return; }
+        if (t < 0) return;
+        for (int j = i; j < c.length; j++) {
+            l.add(c[j]);
+            f(c, t - c[j], j, l, r);
+            l.remove(l.size() - 1);
+        }
+    }
+}
