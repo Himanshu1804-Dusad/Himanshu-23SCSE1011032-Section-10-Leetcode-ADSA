@@ -1,0 +1,17 @@
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] c, int t) {
+        List<List<Integer>> r =new ArrayList<>();
+        Arrays.sort(c);
+        back(r, new ArrayList<>(), c, t, 0);
+        return r;
+    }
+    void back(List<List<Integer>> r, List<Integer> path, int[] c, int t, int i) {
+        if(t == 0) { r.add(new ArrayList<>(path)); return;}
+        for(int j = i; j < c.length && c[j] <= t; j++){
+            if (j > i && c[j] == c[j - 1]) continue;
+            path.add(c[j]);
+            back(r, path, c, t- c[j], j + 1);
+            path.remove(path.size() - 1);
+        }
+    }
+}
