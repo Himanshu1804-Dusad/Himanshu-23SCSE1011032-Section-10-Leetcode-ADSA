@@ -1,0 +1,28 @@
+class Solution {
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        TreeMap<Integer, List<int[]>> map = new TreeMap<>();
+        Queue<Object[]> q = new LinkedList<>();
+        q.add(new Object[]{root, 0, 0}); // node, row, col
+
+        while (!q.isEmpty()) {
+            Object[] obj = q.poll();
+            TreeNode node = (TreeNode) obj[0];
+            int r = (int) obj[1], c = (int) obj[2];
+
+            map.putIfAbsent(c, new ArrayList<>());
+            map.get(c).add(new int[]{r, node.val});
+
+            if (node.left != null) q.add(new Object[]{node.left, r + 1, c - 1});
+            if (node.right != null) q.add(new Object[]{node.right, r + 1, c + 1});
+        }
+
+        List<List<Integer>> ans = new ArrayList<>();
+        for (List<int[]> list : map.values()) {
+            list.sort((a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
+            List<Integer> col = new ArrayList<>();
+            for (int[] p : list) col.add(p[1]);
+            ans.add(col);
+        }
+        return ans;
+    }
+}
