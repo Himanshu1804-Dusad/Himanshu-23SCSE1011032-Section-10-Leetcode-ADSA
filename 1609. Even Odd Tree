@@ -1,0 +1,29 @@
+class Solution {
+    public boolean isEvenOddTree(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        boolean even = true; // level 0 is even-indexed
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            int prev = even ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+
+            while (size-- > 0) {
+                TreeNode n = q.poll();
+
+                if (even) { 
+                    if (n.val % 2 == 0 || n.val <= prev) return false;
+                } else { 
+                    if (n.val % 2 != 0 || n.val >= prev) return false;
+                }
+
+                prev = n.val;
+
+                if (n.left != null) q.add(n.left);
+                if (n.right != null) q.add(n.right);
+            }
+            even = !even;
+        }
+        return true;
+    }
+}
