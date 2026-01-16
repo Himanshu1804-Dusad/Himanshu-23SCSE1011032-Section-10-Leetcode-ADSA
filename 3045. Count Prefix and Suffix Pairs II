@@ -1,0 +1,17 @@
+class Solution {
+    public long countPrefixSuffixPairs(String[] w) {
+        long ans = 0;
+        var map = new java.util.HashMap<Long, Integer>();
+        for (String s : w) {
+            long p = 0, q = 0, base = 131, pow = 1;
+            for (int i = 0, n = s.length(); i < n; i++) {
+                p = p * base + s.charAt(i);
+                q += pow * s.charAt(n - 1 - i);
+                pow *= base;
+                if (p == q) ans += map.getOrDefault(p, 0);
+            }
+            map.put(p, map.getOrDefault(p, 0) + 1);
+        }
+        return ans;
+    }
+}
