@@ -1,0 +1,14 @@
+import java.util.*;
+class Solution{
+  public List<String> letterCombinations(String d){
+    if(d.isEmpty()) return List.of();
+    String[] m={"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    List<String> r=new ArrayList<>(List.of(""));
+    for(char c:d.toCharArray()){
+      List<String> t=new ArrayList<>();
+      for(String s:r) for(char ch:m[c-'2'].toCharArray()) t.add(s+ch);
+      r=t;
+    }
+    return r;
+  }
+}
