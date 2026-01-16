@@ -1,0 +1,16 @@
+class Solution {
+    public int minDays(int[] b, int m, int k) {
+        if ((long)m * k > b.length) return -1;
+        int l = 1, r = 0;
+        for (int x : b) r = Math.max(r, x);
+        while (l < r) {
+            int d = (l + r) / 2, c = 0, f = 0;
+            for (int x : b)
+                if (x <= d) { if (++c == k) { f++; c = 0; } }
+                else c = 0;
+            if (f < m) l = d + 1;
+            else r = d;
+        }
+        return l;
+    }
+}
