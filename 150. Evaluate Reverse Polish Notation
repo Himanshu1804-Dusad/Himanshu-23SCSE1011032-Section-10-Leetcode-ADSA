@@ -1,0 +1,12 @@
+class Solution {
+    public int evalRPN(String[] t) {
+        int[] s=new int[t.length];
+        int i=0;
+        for(String x:t)
+            if("+*/-".contains(x)){
+                int b=s[--i], a=s[--i];
+                s[i++]=x.equals("+")?a+b:x.equals("-")?a-b:x.equals("*")?a*b:a/b;
+            } else s[i++]=Integer.parseInt(x);
+        return s[0];
+    }
+}
