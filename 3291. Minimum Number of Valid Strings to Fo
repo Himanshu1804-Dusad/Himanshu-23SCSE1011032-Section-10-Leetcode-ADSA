@@ -1,0 +1,15 @@
+class Solution {
+    public int minValidStrings(String[] w, String t) {
+        int n=t.length(), inf=1<<30;
+        int[] dp=new int[n+1];
+        java.util.Arrays.fill(dp,inf);
+        dp[0]=0;
+        for(int i=0;i<n;i++)
+            if(dp[i]<inf)
+                for(String s:w)
+                    for(int k=1;k<=s.length() && i+k<=n;k++)
+                        if(t.startsWith(s.substring(0,k),i))
+                            dp[i+k]=Math.min(dp[i+k],dp[i]+1);
+        return dp[n]==inf?-1:dp[n];
+    }
+}
