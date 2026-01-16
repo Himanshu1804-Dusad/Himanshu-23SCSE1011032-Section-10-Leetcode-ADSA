@@ -1,0 +1,25 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class MinStack {
+    Stack<Long>s=new Stack<>(); long m;
+    public void push(int x){
+        if(s.isEmpty()){s.push(0L);m=x;}
+        else{s.push(x-m);if(x<m)m=x;}
+    }
+    public void pop(){if(s.pop()<0)m-=s.peek();}
+    public int top(){long t=s.peek();return t>0?(int)(m+t):(int)m;}
+    public int getMin(){return (int)m;}
+}
